@@ -1,0 +1,102 @@
+﻿@using MVC_Stok_Proje.Models.Entity
+@model SatisModel
+
+
+@*@model Tuple<List<TBLSATISLAR>, MVC_Stok_Proje.Models.Entity.TBLSATISLAR>
+    Bu tuple kullanımı sayesinde çoklu model alabiliyoruz... SAdece kullanırken item1 ve item2 gibi parametre vereceksin...*@
+
+@* ama ben model deki TBLSATISLAR'da list oluturup, controllerda direkt nesneyi çağırdım. Böyece her ikisini de aldı'*@
+
+@{
+    ViewBag.Title = "Satış Sırala";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["mesaj"] != null)
+{
+    <br />
+    <div class="alert alert-success alert-dismissible " role="alert">
+        <strong>İşlem Başarılı!</strong> @TempData["mesaj"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <br />
+}
+
+<table id="satisTablosu" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ÜRÜN</th>
+            <th>MÜŞTERİ</th>
+            <th>ADET</th>
+            <th>FİYAT</th>
+            <th>SİL</th>
+            <th>GÜNCELLE</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.SatisListe)
+    {
+        <tr>
+            <td>@item.SATISID</td>
+            <td>@item.TBLURUNLER.URUNAD</td>
+            <td>@item.TBLMUSTERILER.MUSTERIAD </td>
+            <td>@item.ADET</td>
+            <td>@item.FIYAT</td>
+            <td>@Html.ActionLink("SİL", "Sil", new { id = item.SATISID }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İstiyor musunuz?')" })</td>
+            <td><a class="btn btn-primary" href="/Satis/SatisDuzenle/@item.SATISID">GÜNCELLE</a></td>
+        </tr>
+
+    }
+
+
+</table>
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#YeniSatis">YENİ SATIŞ EKLE</button>
+
+
+
+<div class="modal" id="YeniSatis">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding:20px">
+            <div class="modal-header">
+                <h2 class="modal-title">Yeni Satış Ekleme Paneli</h2>
+
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Satis/YeniSatis" class="form-group">
+
+                    @*acion kısmı önemli /Controller/Controller içindeki Fonksiyon/*@
+                    <label>Ürün Adı: </label>@Html.DropDownListFor(m => m.URUN, ViewBag.SatisUrun as SelectList, new { @class = "form-control", @style = "margin-bottom:5px; min-width: 100%" })
+                    <label>Müşteri Adı: </label>@Html.DropDownListFor(m => m.MUSTERI, ViewBag.SatisMusteri as SelectList, new { @class = "form-control", @style = "margin-bottom:15px; min-width: 100%" })
+                <input name="ADET" style="margin-top:15px; min-width: 100%" class="form-control" type="text" required placeholder="Adet Giriniz..." />
+                    <input name="FIYAT" style="margin-top:15px; min-width: 100%" class="form-control" type="text" required placeholder="Fiyat Giriniz..." />
+
+                    <button class="btn btn-success" style="margin-top:15px" id="buton1">EKLE</button>
+                    <button class="btn btn-danger" style="margin-top:15px" data-dismiss="modal">VAZGEÇ</button>
+                </form>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ 
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/DataTables/js/DataTables.min.js"></script>
+<script>
+
+    $('#satisTablosu').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+        }
+    });
+
+</script>
+

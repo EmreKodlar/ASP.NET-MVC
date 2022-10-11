@@ -1,0 +1,9 @@
+﻿@using MVC_Stok_Proje.Models.Entity
+@model List<TBLSAYFALAR>
+
+@foreach (var p in Model)
+{
+    <li>
+        <a href="/Sayfa/SayfaGoster/@p.SAYFAID">@p.SAYFAAD</a>
+    </li>
+}

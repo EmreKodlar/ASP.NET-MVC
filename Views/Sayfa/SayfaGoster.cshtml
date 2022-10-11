@@ -1,0 +1,107 @@
+﻿@model MVC_Stok_Proje.Models.Entity.TBLSAYFALAR
+
+
+@{
+
+    Html.Raw(Model.SAYFAYAZ);
+
+    ViewBag.Title = Model.SAYFAAD;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["mesaj"] != null)
+{
+    <br />
+    <div class="alert alert-success alert-dismissible " role="alert">
+        <strong>İşlem Başarılı!</strong> @TempData["mesaj"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+     
+}
+
+<br />
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#YeniSayfa" style="margin-right:50px;">YENİ SAYFA EKLE</button>
+
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#SayfaSil">BU SAYFAYI SİL</button>
+<br />
+
+<h2 class="bg-primary" style="margin-top:15px; padding:20px">@Model.SAYFAAD</h2>
+
+<div class="col col-md-7 text-justify" style="margin-top:15px">
+
+
+    @Html.Raw(@Model.SAYFAYAZ)
+    
+    <a href="/Sayfa/SayfaDuzenle/@Model.SAYFAID" class="btn btn-primary" style="margin-top:15px">@Model.SAYFAAD SAYFASININ BİLGİLERİNİ DEĞİŞTİR</a>
+</div>
+
+<div class="col col-md-5" style="margin-top: 15px">
+    <img src="@Model.SAYFAFOTO" width="450" class="img-rounded" /> <br /><br />
+
+    @using (Html.BeginForm("FotoDuzenle", "Sayfa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(x => x.SAYFAID);
+
+        <input type="file" name="SAYFAFOTO" required class="form-control" />
+
+        <button class="btn btn-warning" style="margin-top:15px">@Model.SAYFAAD SAYFASININ FOTOSUNU DEĞİŞTİR</button>
+
+    }
+
+
+
+
+
+</div>
+
+<div class="modal" id="YeniSayfa">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding:60px">
+            <div class="modal-header">
+                <h2 class="modal-title">Yeni Sayfa Ekleme Paneli</h2>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Sayfa/YeniSayfa" enctype="multipart/form-data" class="form-group">
+                    @*acion kısmı önemli /Controller/Controller içindeki Fonksiyon/*@
+
+                    <label>Sayfa Adı: </label>  <input name="SAYFAAD" style="margin-top:15px" class="form-control" type="text" required />
+
+                    <br />
+
+                    <label>Sayfa Yazı: </label><textarea name="SAYFAYAZ" rows="6" cols="12" style="margin-top:15px" class="form-control" required></textarea>
+                    <br />
+                    <label>Sayfa Foto: </label>  <input name="SAYFAFOTO" style="margin-top:15px" class="form-control" type="file" required />
+
+
+                    <button class="btn btn-success" style="margin-top:15px" id="buton1">EKLE</button>
+                    <button class="btn btn-danger" style="margin-top:15px" data-dismiss="modal">VAZGEÇ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="SayfaSil">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding:60px">
+            <div class="modal-header">
+                <h2 class="modal-title">Sayfa Silme Paneli</h2>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Sayfa/SayfaSil" >
+                    @*acion kısmı önemli /Controller/Controller içindeki Fonksiyon/*@
+                    @Html.HiddenFor(x=>x.SAYFAID)
+                    <label><h2>Emin misiniz?</h2></label>
+                    <button class="btn btn-success" style="margin:15px" id="buton2">EVET</button>
+                    <button class="btn btn-danger" style="margin:15px" data-dismiss="modal">HAYIR</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

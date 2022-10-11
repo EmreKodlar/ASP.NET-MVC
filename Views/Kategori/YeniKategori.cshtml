@@ -1,0 +1,26 @@
+﻿@using MVC_Stok_Proje.Models.Entity 
+@model List<TBLKATEGORILER>
+
+@{
+    ViewBag.Title = "Yeni Kategori";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Yeni Kategori Ekle</h2>
+
+<form method="post" class="form-group">
+
+    <div>
+        <label>Kategori Adı:</label>
+        <input name="KATEGORIAD" type="text" class="form-control" required/>
+
+    </div>
+
+    <div>
+        <button  class="btn btn-primary" style="margin-top:10px">EKLE</button>
+
+    </div>
+ 
+</form>
+ 
+

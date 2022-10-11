@@ -1,0 +1,36 @@
+﻿@model MVC_Stok_Proje.Models.Entity.TBLSAYFALAR
+@{
+    ViewBag.Title = Model.SAYFAAD;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+
+<h2 class="bg-primary" style="margin-top:15px; padding:20px">@Model.SAYFAAD Sayfasını Düzenle</h2>
+<br />
+
+@using (Html.BeginForm("Guncelle", "Sayfa", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.SAYFAID)
+
+    <label>Sayfa Başlığı:</label>
+
+    @Html.TextBoxFor(x => x.SAYFAAD, new { @class = "form-control", @required = "required" })
+
+
+    <br />
+
+
+    <label>Sayfa Yazısı:</label>
+
+
+    @Html.EditorFor(x => x.SAYFAYAZ)<br />
+    
+
+
+    <button class="btn btn-primary">GÜNCELLE</button>
+}
+
+

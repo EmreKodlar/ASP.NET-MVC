@@ -1,0 +1,30 @@
+﻿@model MVC_Stok_Proje.Models.Entity.TBLMUSTERILER
+@{
+    ViewBag.Title = "Müşteri Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Guncelle", "Musteri", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.MUSTERIID)
+    <label>Müşteri Adı: </label> @Html.TextBoxFor(m => m.MUSTERIAD, new { @class = "form-control", @required = "required" })
+    <br />
+    <label>Müşteri Soyadı: </label> @Html.TextBoxFor(m => m.MUSTERISOYAD, new { @class = "form-control", @required = "required" })
+    <button class="btn btn-primary" style="margin-top:15px">GÜNCELLE</button>
+    <hr />
+}
+@using (Html.BeginForm("FotoGuncelle", "Musteri", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(m => m.MUSTERIID)
+    <label>Müşteri Fotosu: </label>
+    <br />
+    <img src="@Model.MUSTERIFOTO" height="250" />
+
+    <input name="MUSTERIFOTO" type="file" class="form-control left" required />
+    <button class="btn btn-primary" style="margin-top:15px">FOTO'YU GÜNCELLE</button>
+
+}
+

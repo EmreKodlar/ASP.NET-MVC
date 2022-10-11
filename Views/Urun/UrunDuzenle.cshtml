@@ -1,0 +1,33 @@
+﻿@model MVC_Stok_Proje.Models.Entity.TBLURUNLER
+@{
+    ViewBag.Title = "UrunDuzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<h2>Ürün Duzenle : @Model.URUNAD </h2>
+
+
+@using (Html.BeginForm("Guncelle", "Urun", FormMethod.Post))
+{
+
+    @Html.HiddenFor(m => m.URUNID);
+
+  
+
+    <div>
+        <label>Ürün Adı: </label> @Html.TextBoxFor(m => m.URUNAD, new { @class = "form-control" , @required= "required" })
+    </div>
+    <div>
+        <label>Ürün Kategori: </label>  @Html.DropDownListFor(m => m.URUNKATEGORI, ViewBag.Urunler as SelectList, new { @class = "form-control" })
+                                                                                         @*seçili değeri getirme controller tarafında ayapılacak*@
+     </div>
+    <div>
+        <label>Ürün Fiyatı: </label> @Html.TextBoxFor(m => m.FIYAT, new { @class = "form-control", @required = "required" })
+    </div>
+   <div>
+       <button class="btn btn bg-primary" style="margin-top:15px">GÜNCELLE</button>
+   </div>
+
+}
+

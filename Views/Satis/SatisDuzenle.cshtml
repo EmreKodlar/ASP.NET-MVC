@@ -1,0 +1,23 @@
+﻿@model MVC_Stok_Proje.Models.Entity.TBLSATISLAR
+@{
+    ViewBag.Title = "SatisDuzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Satis Duzenle</h2>
+
+
+
+@using (Html.BeginForm("Guncelle", "Satis", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.SATISID);
+    <label>Ürün Adı: </label>@Html.DropDownListFor(m => m.URUN, ViewBag.SatisUrun as SelectList, new { @class = "form-control" })
+    <label>Müşteri Adı: </label>@Html.DropDownListFor(m => m.MUSTERI, ViewBag.SatisMusteri as SelectList, new { @class = "form-control" })
+    @*seçili değeri DropDownList'e getirme controller tarafında ayapılacak*@
+    <label>Adet: </label>@Html.TextBoxFor(m => m.ADET, new { @class = "form-control", Required = "required" })
+    <label>Fiyat: </label>@Html.TextBoxFor(m => m.FIYAT, new { @class = "form-control", Required = "required" })
+
+    <button class="btn btn-primary" style="margin-top:15px">GÜNCELLE</button>
+
+}
+

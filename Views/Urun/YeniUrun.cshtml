@@ -1,0 +1,27 @@
+﻿@model MVC_Stok_Proje.Models.Entity.TBLURUNLER
+
+@{
+    ViewBag.Title = "Yeni Ürün Ekleme Sayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+ 
+<form class="form-group" method="post">
+
+    <div>
+        <label>Ürün Adı: </label><input name="URUNAD" class="form-control" type="text" required />
+        <label>Kategorisi:</label>
+
+        @Html.DropDownListFor(m => m.URUNKATEGORI, ViewBag.Urunler as SelectList, "Lütfen Seçiniz", new { @class = "form-control" })
+
+        @* DropDownListFor yapısı-> (gelecek id, UrunController'daki 'SelectList ve ViewBag adı, "Lütfen Seçiniz", stil) *@
+
+        <label>Fiyatı: </label><input name="FIYAT" class="form-control" type="text" required />
+    </div>
+
+    <div>
+        <button class="btn btn-primary" style="margin-top:15px">YENİ ÜRÜN EKLE</button>
+    </div>
+
+</form>

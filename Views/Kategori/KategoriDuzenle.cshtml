@@ -1,0 +1,30 @@
+﻿@model MVC_Stok_Proje.Models.Entity.TBLKATEGORILER
+
+@{
+    ViewBag.Title = "Kategori Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.KATEGORIAD</h2>
+
+@using (Html.BeginForm("Guncelle", "Kategori", FormMethod.Post))
+{
+
+    <div class="form-group">
+
+        @Html.HiddenFor(m => m.KATEGORIID)
+
+        <label>Kategori Adı:</label>
+
+        @Html.TextBoxFor(m => m.KATEGORIAD, new { @class = "form-control", @required = "required" })
+
+    </div>
+
+    <div><button class="btn btn-primary">GÜNCELLE</button></div>
+
+
+
+
+}
+
+
